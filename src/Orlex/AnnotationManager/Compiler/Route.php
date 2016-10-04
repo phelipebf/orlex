@@ -50,14 +50,14 @@ class Route extends AbstractCompiler {
         $this->globalAnnotations = $annotations;
 
         //Register Controller With App
-        $app[$this->serviceId($class)] = $app->share(function($app) use ($class) {
+        $app[$this->serviceId($class)] = function($app) use ($class) {
             $controller = $class->newInstance();
 
             if (method_exists($controller, 'setContainer'))
                 $controller->setContainer($app);
 
             return $controller;
-        });
+        };
     }
 
     /**

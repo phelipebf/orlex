@@ -29,7 +29,7 @@ class ServiceProvider implements ServiceProviderInterface {
         ////
         // Internal Services
         ////
-        $app['orlex.cache'] = $app->share(function($app){
+        $app['orlex.cache'] = function($app){
             $cache_dir = $app['orlex.cache.dir'];
 
             if (!$cache_dir) return false;
@@ -37,9 +37,9 @@ class ServiceProvider implements ServiceProviderInterface {
             $cache = new Cache\FilesystemCache($cache_dir);
 
             return $cache;
-        });
+        };
 
-        $app['orlex.annotation.reader'] = $app->share(function($app) {
+        $app['orlex.annotation.reader'] = function($app) {
             $reader = new Annotations\AnnotationReader();
 
             if ($cache = $app['orlex.cache']) {
@@ -47,26 +47,26 @@ class ServiceProvider implements ServiceProviderInterface {
             }
 
             return $reader;
-        });
+        };
 
-        $app['orlex.directoryloader'] = $app->share(function() {
+        $app['orlex.directoryloader'] = function() {
             return new Loader\DirectoryLoader();
-        });
+        };
 
-        $app['orlex.annotation.registry'] = $app->share(function($app) {
+        $app['orlex.annotation.registry'] = function($app) {
             AnnotationRegistry::registerAutoloadNamespace('Orlex\Annotation', dirname(__DIR__));
             foreach ($app['orlex.annotation.dirs'] as $dir => $namespace) {
                 AnnotationRegistry::registerAutoloadNamespace($namespace, $dir);
             }
-        });
+        };
 
-        $app['orlex.route.compiler'] = $app->share(function($app) {
+        $app['orlex.route.compiler'] = function($app) {
             $app['orlex.annotation.registry'];
 
             $compiler = new Compiler\Route($app['orlex.annotation.reader'], $app['orlex.directoryloader']);
             $compiler->setContainer($app);
             return $compiler;
-        });
+        };
     }
 
     public function boot(Application $app) {

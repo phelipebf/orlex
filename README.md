@@ -2,7 +2,7 @@ Orlex: Organized Silex
 ===
 [![Build Status](https://api.travis-ci.org/phelipebf/orlex.png?branch=master)](https://travis-ci.org/phelipebf/orlex)
 
-Orlex attempts to give a mild amount of structure to [Silex](http://github.com/fabpot/Silex) without extending, overwriting, or using any dirty hacks.
+Orlex é uma tentativa de dar uma estrutura mínima para o [Silex](http://github.com/fabpot/Silex) sem extender, reescrever ou usar qualquer de hack.
 
 Setting up Orlex is as simple as registering a service provider and pointing it to a directory of controllers:
 

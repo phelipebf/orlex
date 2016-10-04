@@ -1,20 +1,20 @@
 {
-    "name": "dcousineau/orlex",
-    "description": "Silex extension for providing an organized, annotated controller infrastructure, designed to blend the simplicity of Silex and organization of Symfony 2",
+    "name": "phelipebf/orlex",
+    "description": "Extensão do Silex for providing an organized, annotated controller infrastructure, designed to blend the simplicity of Silex and organization of Symfony 2",
     "keywords": ["framework", "silex"],
     "license": "MIT",
     "authors": [
         {
-            "name": "Daniel Cousineau",
-            "email": "dcousineau@gmail.com"
+            "name": "Phelipe Folgierini",
+            "email": "phelipebf@gmail.com"
         }
     ],
     "require": {
         "php": ">=5.4.0",
-        "silex/silex": "~1.0",
+        "silex/silex": "~2.0",
         "doctrine/annotations": "~1.0",
-        "doctrine/cache": "~1.0",
-        "symfony/config": "~2.1"
+        "doctrine/cache": "~2.3",
+        "symfony/config": "~2.8|3.0.*"
     },
     "require-dev": {
         "phpunit/phpunit": "3.7.*",

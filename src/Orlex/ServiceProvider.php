@@ -1,7 +1,7 @@
 <?php
 namespace Orlex;
 
-use Silex\ServiceProviderInterface;
+use Pimple\ServiceProviderInterface;
 use Silex\Application;
 use Silex\Provider\ServiceControllerServiceProvider;
 

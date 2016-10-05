@@ -2,7 +2,6 @@
 namespace Orlex;
 
 use Pimple\ServiceProviderInterface;
-use Pimple\Container;
 
 use Silex\Application;
 use Silex\Provider\ServiceControllerServiceProvider;
@@ -16,24 +15,24 @@ use Doctrine\Common\Cache;
 
 class ServiceProvider implements ServiceProviderInterface {
     
-    public function register(Container $pimple, Application $app) {
+    public function register(Pimple\Container $pimple) {
         ////
         // Absolute dependencies
         ////
-        $app->register(new ServiceControllerServiceProvider());
+        #$app->register(new ServiceControllerServiceProvider());
 
         ////
         // User Configured Values
         ////
-        $app['orlex.cache.dir']       = null;
-        $app['orlex.controller.dirs'] = [];
-        $app['orlex.annotation.dirs'] = [];
+        $pimple['orlex.cache.dir']       = null;
+        $pimple['orlex.controller.dirs'] = [];
+        $pimple['orlex.annotation.dirs'] = [];
 
         ////
         // Internal Services
         ////
-        $app['orlex.cache'] = function($app){
-            $cache_dir = $app['orlex.cache.dir'];
+        $pimple['orlex.cache'] = function($pimple){
+            $cache_dir = $pimple['orlex.cache.dir'];
 
             if (!$cache_dir) return false;
 
@@ -42,32 +41,32 @@ class ServiceProvider implements ServiceProviderInterface {
             return $cache;
         };
 
-        $app['orlex.annotation.reader'] = function($app) {
+        $pimple['orlex.annotation.reader'] = function($pimple) {
             $reader = new Annotations\AnnotationReader();
 
-            if ($cache = $app['orlex.cache']) {
+            if ($cache = $pimple['orlex.cache']) {
                 $reader = new Annotations\CachedReader($reader, $cache);
             }
 
             return $reader;
         };
 
-        $app['orlex.directoryloader'] = function() {
+        $pimple['orlex.directoryloader'] = function() {
             return new Loader\DirectoryLoader();
         };
 
-        $app['orlex.annotation.registry'] = function($app) {
+        $pimple['orlex.annotation.registry'] = function($pimple) {
             AnnotationRegistry::registerAutoloadNamespace('Orlex\Annotation', dirname(__DIR__));
-            foreach ($app['orlex.annotation.dirs'] as $dir => $namespace) {
+            foreach ($pimple['orlex.annotation.dirs'] as $dir => $namespace) {
                 AnnotationRegistry::registerAutoloadNamespace($namespace, $dir);
             }
         };
 
-        $app['orlex.route.compiler'] = function($app) {
-            $app['orlex.annotation.registry'];
+        $pimple['orlex.route.compiler'] = function($pimple) {
+            $pimple['orlex.annotation.registry'];
 
-            $compiler = new Compiler\Route($app['orlex.annotation.reader'], $app['orlex.directoryloader']);
-            $compiler->setContainer($app);
+            $compiler = new Compiler\Route($pimple['orlex.annotation.reader'], $pimple['orlex.directoryloader']);
+            $compiler->setContainer($pimple);
             return $compiler;
         };
     }

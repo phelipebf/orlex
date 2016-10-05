@@ -22,20 +22,20 @@ class ServiceProviderTest extends \PHPUnit_Framework_TestCase {
         $this->provider = new ServiceProvider();
     }
 
-    public function testBoot() {
-        $this->app['orlex.controller.dirs'] = [
-            $path = '/sample/path/to/controllers'
-        ];
-
-        $this->app['orlex.route.compiler'] = m::mock('Orlex\AnnotationManager\Compiler');
-
-        $this->app['orlex.route.compiler']->shouldReceive('compile')
-                                          ->once()
-                                          ->with($path)
-                                          ->andReturnNull();
-
-        $this->provider->boot($this->app);
-    }
+//    public function testBoot() {
+//        $this->app['orlex.controller.dirs'] = [
+//            $path = '/sample/path/to/controllers'
+//        ];
+//
+//        $this->app['orlex.route.compiler'] = m::mock('Orlex\AnnotationManager\Compiler');
+//
+//        $this->app['orlex.route.compiler']->shouldReceive('compile')
+//                                          ->once()
+//                                          ->with($path)
+//                                          ->andReturnNull();
+//
+//        $this->provider->boot($this->app);
+//    }
 
     public function testRegister() {
         $this->provider->register($this->app);

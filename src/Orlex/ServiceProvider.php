@@ -2,6 +2,8 @@
 namespace Orlex;
 
 use Pimple\ServiceProviderInterface;
+use Pimple\Container;
+
 use Silex\Application;
 use Silex\Provider\ServiceControllerServiceProvider;
 
@@ -13,7 +15,8 @@ use Doctrine\Common\Annotations\AnnotationRegistry;
 use Doctrine\Common\Cache;
 
 class ServiceProvider implements ServiceProviderInterface {
-    public function register(Application $app) {
+    
+    public function register(Container $pimple, Application $app) {
         ////
         // Absolute dependencies
         ////

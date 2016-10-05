@@ -1,6 +1,7 @@
 <?php
 namespace Orlex;
 
+use Pimple\ServiceProviderInterface;
 use Pimple\Container;
 
 use Silex\Application;
@@ -13,7 +14,7 @@ use Doctrine\Common\Annotations;
 use Doctrine\Common\Annotations\AnnotationRegistry;
 use Doctrine\Common\Cache;
 
-class ServiceProvider implements Pimple\ServiceProviderInterface {
+class ServiceProvider implements ServiceProviderInterface {
     
     public function register(Container $pimple) {
         ////

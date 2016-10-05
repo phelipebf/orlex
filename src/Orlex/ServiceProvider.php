@@ -1,7 +1,7 @@
 <?php
 namespace Orlex;
 
-use Pimple\ServiceProviderInterface;
+use Pimple\Container;
 
 use Silex\Application;
 use Silex\Provider\ServiceControllerServiceProvider;
@@ -13,9 +13,9 @@ use Doctrine\Common\Annotations;
 use Doctrine\Common\Annotations\AnnotationRegistry;
 use Doctrine\Common\Cache;
 
-class ServiceProvider implements ServiceProviderInterface {
+class ServiceProvider implements Pimple\ServiceProviderInterface {
     
-    public function register(Pimple\Container $pimple) {
+    public function register(Container $pimple) {
         ////
         // Absolute dependencies
         ////
@@ -71,12 +71,12 @@ class ServiceProvider implements ServiceProviderInterface {
         };
     }
 
-    public function boot(Application $app) {
-        /** @var $compiler Compiler\Route */
-        $compiler = $app['orlex.route.compiler'];
-
-        foreach ($app['orlex.controller.dirs'] as $path) {
-            $compiler->compile($path);
-        }
-    }
+//    public function boot(Application $app) {
+//        /** @var $compiler Compiler\Route */
+//        $compiler = $app['orlex.route.compiler'];
+//
+//        foreach ($app['orlex.controller.dirs'] as $path) {
+//            $compiler->compile($path);
+//        }
+//    }
 }
